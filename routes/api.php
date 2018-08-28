@@ -19,8 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => '/post'], function(){
 	Route::get('/', 'PostController@index')->name('post.list');
-	Route::post('/', 'PostController@store')->name('post.store');
 	Route::get('/{post}', 'PostController@show')->name('post.show');
-	Route::patch('/{post}', 'PostController@update')->name('post.update');
-	Route::delete('/{post}', 'PostController@destroy')->name('post.delete');
+	
+	Route::middleware(['auth:api'])->group(function(){
+		Route::post('/', 'PostController@store')->name('post.store')->middleware('add_owner');
+		Route::patch('/{post}', 'PostController@update')->name('post.update')->middleware('post_owner');
+		Route::delete('/{post}', 'PostController@destroy')->name('post.delete')->middleware('post_owner');
+	});
 });
