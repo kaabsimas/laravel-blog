@@ -17,7 +17,8 @@ class PostController extends Controller
         // if (rand(1, 10) < 5) {
         //     abort(500, 'We could not retrieve the users');
         // }
-        return Post::all();
+        $posts = Post::with(['user'])->get();
+        return $posts;
     }
 
     /**

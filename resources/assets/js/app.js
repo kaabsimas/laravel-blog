@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 import App from './views/App'
 import Hello from './views/Hello'
 import Home from './views/Home'
-import Posts from './views/Posts'
+import Login from './views/Login'
 
 const router = new VueRouter({
     mode: 'history',
@@ -22,9 +22,9 @@ const router = new VueRouter({
             component: Hello,
         },
         {
-        	path: '/posts',
-        	name: 'posts',
-        	component: Posts,
+        	path: '/login',
+        	name: 'login',
+        	component: Login,
         }
     ],
 });

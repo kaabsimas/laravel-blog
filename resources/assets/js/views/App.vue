@@ -8,7 +8,7 @@
                     <nav class="navbar" role="navigation" aria-label="main navigation">
                         <div class="navbar-item">
                         </div>
-                        <div class="navbar-menu">
+                        <div v-bind:class="{ 'navbar-menu': true, 'is-active': isActive }" >
                             <div class="navbar-start">
                                 <p class="navbar-item">
                                     <router-link :to="{ name: 'home' }" class="link is-info">Home</router-link>
@@ -18,13 +18,13 @@
                                 </p>
                                 
                                 <p class="navbar-item">
-                                    <router-link :to="{ name: 'posts' }" class="link is-info">Postagens</router-link>
+                                    <router-link :to="{ name: 'login' }" class="link is-info">Login</router-link>
                                 </p>
                                 <p class="navbar-item">
                                 </p>
                             </div>
                         </div>
-                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <a role="button" @click="activate" class="navbar-burger" aria-label="menu" aria-expanded="false">
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
@@ -39,5 +39,17 @@
     </div>
 </template>
 <script>
-    export default {}
+    export default {
+        data() {
+            return {
+                isActive: false,
+            };
+        },
+        methods: {
+            activate() {
+                this.isActive = !this.isActive;
+                return this.isActive;
+            }
+        }
+    };
 </script>

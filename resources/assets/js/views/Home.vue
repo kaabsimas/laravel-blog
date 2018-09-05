@@ -14,7 +14,7 @@
 	    </div>
 
 	    <div class="columns is-multiline" v-if="posts">
-	        <div class="column is-one-third" v-for="{ title, description } in posts">
+	        <div class="column is-one-third" v-for="{ title, description, user } in posts">
 	            <div class="card">
 				  	<div class="card-image">
 				    	<figure class="image is-4by3">
@@ -30,7 +30,7 @@
 				      		</div>
 				      		<div class="media-content">
 						        <p class="title is-4">{{ title }}</p>
-						        <p class="subtitle is-6">@author</p>
+						        <p class="subtitle is-6">@{{ user.name }}</p>
 				      		</div>
 				    	</div>
 				    	<div class="content">
@@ -67,6 +67,7 @@ export default {
                 .then(response => {
                     this.loading = false;
                     this.posts = response.data;
+                    console.log( response.data );
                 })
                 .catch(error => {
                     this.loading = false;
