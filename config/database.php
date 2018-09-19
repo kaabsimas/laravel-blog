@@ -1,4 +1,16 @@
 <?php
+if( config('app.env') == 'production' ){
+    $DB_CONFIG = parse_url(getenv("DATABASE_URL"));
+    $DB_CONFIG['database'] = ltrim($DATABASE_URL["path"], "/");
+}
+else{
+    $DB_CONFIG['host'] = env('DB_HOST', '127.0.0.1');
+    $DB_CONFIG['port'] = env('DB_PORT', '5432');
+    $DB_CONFIG['database'] = env('DB_DATABASE', 'forge');
+    $DB_CONFIG['user'] = env('DB_USERNAME', 'forge');
+    $DB_CONFIG['pass'] = env('DB_PASSWORD', '');
+}
+
 
 return [
 
@@ -12,6 +24,7 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
+
 
     'default' => env('DB_CONNECTION', 'mysql'),
 
@@ -56,11 +69,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $DB_CONFIG['host'],
+            'port' => $DB_CONFIG['port'],
+            'database' => $DB_CONFIG['database'],
+            'username' => $DB_CONFIG['user'],
+            'password' => $DB_CONFIG['pass'],
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
